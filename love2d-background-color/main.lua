@@ -3,9 +3,9 @@ local BACKGROUND_CHANGE_TIMEOUT = 3
 local r, g, b, initTime
 
 local function getNewColor()
-  local r = math.random(MAX_COLOR_VALUE);
-  local g = math.random(MAX_COLOR_VALUE);
-  local b = math.random(MAX_COLOR_VALUE);
+  local r = math.random(MAX_COLOR_VALUE)
+  local g = math.random(MAX_COLOR_VALUE)
+  local b = math.random(MAX_COLOR_VALUE)
   return r, g, b
 end
 
@@ -15,7 +15,7 @@ function love.load()
 end
 
 function love.update(dt) 
-  local newTime = love.timer.getTime();
+  local newTime = love.timer.getTime()
   if (newTime - initTime > BACKGROUND_CHANGE_TIMEOUT) then
     initTime = newTime
     r, g, b = getNewColor()
