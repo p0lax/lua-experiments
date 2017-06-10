@@ -1,4 +1,5 @@
 local MAX_COLOR_VALUE = 255;
+local BACKGROUND_CHANGE_TIMEOUT = 3
 local r, g, b, initTime
 
 local function getNewColor()
@@ -15,8 +16,7 @@ end
 
 function love.update(dt) 
   local newTime = love.timer.getTime();
-  print('DELTA:'..initTime - newTime)
-  if (newTime - initTime > 2) then
+  if (newTime - initTime > BACKGROUND_CHANGE_TIMEOUT) then
     initTime = newTime
     r, g, b = getNewColor()
   end
@@ -24,5 +24,5 @@ end
 
 function love.draw()
     love.graphics.setBackgroundColor(r, g, b, 100)
-    love.graphics.printf("My text is " .. r .. ' ' .. b .. ' ' .. g, 0, 400, 800, 'center')
+    love.graphics.printf("My background color is " .. r .. ' ' .. b .. ' ' .. g, 0, 400, 800, 'center')
 end
