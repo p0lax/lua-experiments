@@ -1,8 +1,12 @@
-local initTime
+local MOUSE_LEFT_BUTTON = 1
 local w, h = 50, 50
 local gameWidth, gameHeight
 local isGrowPhase = true
 local coords = {}
+local angle = 0
+-- Objects
+local cursor
+local card
 
 local function createRectCoords()
   local COORD_START = 60;
@@ -27,25 +31,35 @@ local function printTable(table, space)
 end
 
 function love.load()
-  initTime = love.timer.getTime()
   gameWidth = love.graphics.getWidth()
   gameHeight = love.graphics.getHeight()
   createRectCoords()
-  printTable(coords)
+
+  card = love.graphics.newImage("card.png")
+  cursor = love.mouse.newCursor("cursor.png", 0, 0)
+  love.mouse.setCursor(cursor)
+  -- printTable(coords)
+end
+
+function inRectangle()
+
+end
+
+function love.mousepressed(x, y, button)
+  if button == MOUSE_LEFT_BUTTON then
+    angle = angle + 90
+  end
 end
 
 function love.update(dt) 
-  local newTime = love.timer.getTime()
-  if (gameWidth < w or gameHeight < h) then
-    isGrowPhase = false
-  end
-  if (isGrowPhase) then
-    w = w + 0
-    h = h + 0
-  else
-    w = w - 1
-    h = h - 1
-  end
+  -- if (gameWidth < w or gameHeight < h) then
+  --   isGrowPhase = false
+  -- end
+  -- if (isGrowPhase) then
+  --   h = h + 2
+  -- else
+  --   h = h - 2
+  -- end
 end
 
 function love.draw()
@@ -54,4 +68,6 @@ function love.draw()
     love.graphics.setColor(255, 255, 255)
     love.graphics.rectangle('fill', coords[i].x, coords[i].y, w, h)
   end
+
+  love.graphics.draw(card, 300, 300, math.rad(angle), 0.1, 0.1, card:getWidth()/2, card:getHeight()/2)
 end
